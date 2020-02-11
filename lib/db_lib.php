@@ -29,10 +29,6 @@ class db_lib {
     
         
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secre]);
-        
-        echo $user_uuid;
-        pr($bot);
-        exit;
         $response = $bot->getProfile($user_uuid);
         // exit;
         $profile = array();
