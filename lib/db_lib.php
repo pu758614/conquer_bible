@@ -8,8 +8,8 @@ class db_lib {
     function __construct(){
         date_default_timezone_set('asia/taipei');
         header("Content-type: text/html; charset=utf-8");
-        $this->db = ADONewConnection('mysql');
-        $this->db->Connect("localhost","root","123456789","bible");
+        // $this->db = ADONewConnection('mysql');
+        // $this->db->Connect("localhost","root","123456789","bible");
     }
     
     function getUserInfo($id,$type='id'){
