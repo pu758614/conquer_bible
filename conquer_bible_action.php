@@ -1,7 +1,7 @@
 <?php 
-include_once(dirname(__DIR__)."/conquer_bible/conf/conf.php");
-include_once("$ROOT_PATH/lib/common.php");
-include_once("$ROOT_PATH/lib/db_lib.php");
+include_once("conf/conf.php");
+include_once("lib/common.php");
+include_once("lib/db_lib.php");
 // // print_r(dirname(__DIR__));
 $db = NEW db_lib;
 echo "1111";
