@@ -1,9 +1,9 @@
 <?php 
-include_once(dirname(__DIR__)."/conquer_bible/conf/conf.php");
-include_once("$ROOT_PATH/lib/common.php");
-include_once("$ROOT_PATH/lib/db_lib.php");
-// print_r(dirname(__DIR__));
-$db = NEW db_lib;
+// include_once(dirname(__DIR__)."/conquer_bible/conf/conf.php");
+// include_once("$ROOT_PATH/lib/common.php");
+// include_once("$ROOT_PATH/lib/db_lib.php");
+// // print_r(dirname(__DIR__));
+// $db = NEW db_lib;
 echo "1111";
 // $re = $db->getArrayById('sercice','id','2');
 // $msg = isset($_POST['msg'])?trim($_POST['msg']):'';
