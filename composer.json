@@ -1,0 +1,6 @@
+{
+    "require": {
+        "adodb/adodb-php": "5.20",
+        "linecorp/line-bot-sdk": "^4.2"
+    }
+}
