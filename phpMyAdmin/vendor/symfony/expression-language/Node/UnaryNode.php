@@ -27,7 +27,7 @@ class UnaryNode extends Node
         '-' => '-',
     ];
 
-    public function __construct(string $operator, Node $node)
+    public function __construct($operator, Node $node)
     {
         parent::__construct(
             ['node' => $node],
@@ -59,7 +59,7 @@ class UnaryNode extends Node
         return $value;
     }
 
-    public function toArray(): array
+    public function toArray()
     {
         return ['(', $this->attributes['operator'].' ', $this->nodes['node'], ')'];
     }

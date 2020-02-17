@@ -1,6 +1,6 @@
 {
     "name": "phpmyadmin/coding-standard",
-    "description": "phpMyAdmin PHP_CodeSniffer Coding Standard",
+    "description": "phpMyAdmin PHP CodeSniffer Coding Standard",
     "keywords": ["phpcs", "CodeSniffer", "phpMyAdmin"],
     "license": "MIT",
     "type": "phpcodesniffer-standard",
@@ -16,7 +16,6 @@
         "issues": "https://github.com/phpmyadmin/coding-standard/issues"
     },
     "require": {
-        "php": "^7.1",
-        "squizlabs/php_codesniffer": "^3.4.0"
+        "squizlabs/php_codesniffer": "^3.0"
     }
 }

@@ -1,11 +1,11 @@
 <?php
+
 /**
  * The result of the parser is an array of statements are extensions of the
  * class defined here.
  *
  * A statement represents the result of parsing the lexemes.
  */
-declare(strict_types=1);
 
 namespace PhpMyAdmin\SqlParser;
 
@@ -14,6 +14,10 @@ use PhpMyAdmin\SqlParser\Components\OptionsArray;
 
 /**
  * Abstract statement definition.
+ *
+ * @category Statements
+ *
+ * @license  https://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 abstract class Statement
 {
@@ -36,7 +40,7 @@ abstract class Statement
      *
      * @var array
      */
-    public static $OPTIONS = [];
+    public static $OPTIONS = array();
 
     /**
      * The clauses of this statement, in order.
@@ -50,16 +54,16 @@ abstract class Statement
      *
      * @var array
      */
-    public static $CLAUSES = [];
+    public static $CLAUSES = array();
 
-    public static $END_OPTIONS = [];
+    public static $END_OPTIONS = array();
 
     /**
      * The options of this query.
      *
-     * @see static::$OPTIONS
-     *
      * @var OptionsArray
+     *
+     * @see static::$OPTIONS
      */
     public $options;
 
@@ -78,6 +82,8 @@ abstract class Statement
     public $last;
 
     /**
+     * Constructor.
+     *
      * @param Parser     $parser the instance that requests parsing
      * @param TokensList $list   the list of tokens to be parsed
      */
@@ -114,7 +120,7 @@ abstract class Statement
          *
          * @var array
          */
-        $built = [];
+        $built = array();
 
         /**
          * Statement's clauses.
@@ -196,7 +202,7 @@ abstract class Statement
          *
          * @var array
          */
-        $parsedClauses = [];
+        $parsedClauses = array();
 
         // This may be corrected by the parser.
         $this->first = $list->idx;
@@ -297,7 +303,7 @@ abstract class Statement
              *
              * @var array
              */
-            $options = [];
+            $options = array();
 
             // Looking for duplicated clauses.
             if (! empty(Parser::$KEYWORD_PARSERS[$token->value])
@@ -317,7 +323,7 @@ abstract class Statement
             // Fix Issue #221: As `truncate` is not a keyword
             // but it might be the beginning of a statement of truncate,
             // so let the value use the keyword field for truncate type.
-            $token_value = in_array($token->keyword, ['TRUNCATE']) ? $token->keyword : $token->value;
+            $token_value = in_array($token->keyword, array('TRUNCATE')) ? $token->keyword : $token->value;
             if (! empty(Parser::$KEYWORD_PARSERS[$token_value]) && $list->idx < $list->count) {
                 $class = Parser::$KEYWORD_PARSERS[$token_value]['class'];
                 $field = Parser::$KEYWORD_PARSERS[$token_value]['field'];
@@ -546,7 +552,7 @@ abstract class Statement
                 $minIdx = $clauseStartIdx;
             }
 
-            $lastIdx = $clauseStartIdx !== -1 ? $clauseStartIdx : $lastIdx;
+            $lastIdx = ($clauseStartIdx !== -1) ? $clauseStartIdx : $lastIdx;
         }
 
         return true;

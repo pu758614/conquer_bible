@@ -11,14 +11,12 @@
 
 namespace Symfony\Component\ExpressionLanguage;
 
-use Symfony\Contracts\Service\ResetInterface;
-
 /**
  * Compiles a node to PHP code.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Compiler implements ResetInterface
+class Compiler
 {
     private $source;
     private $functions;

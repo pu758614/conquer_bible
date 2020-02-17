@@ -26,7 +26,7 @@ trait ApcuTrait
         return \function_exists('apcu_fetch') && filter_var(ini_get('apc.enabled'), FILTER_VALIDATE_BOOLEAN);
     }
 
-    private function init(string $namespace, int $defaultLifetime, ?string $version)
+    private function init($namespace, $defaultLifetime, $version)
     {
         if (!static::isSupported()) {
             throw new CacheException('APCu is not enabled');
@@ -51,20 +51,14 @@ trait ApcuTrait
      */
     protected function doFetch(array $ids)
     {
-        $unserializeCallbackHandler = ini_set('unserialize_callback_func', __CLASS__.'::handleUnserializeCallback');
         try {
-            $values = [];
             foreach (apcu_fetch($ids, $ok) ?: [] as $k => $v) {
                 if (null !== $v || $ok) {
-                    $values[$k] = $v;
+                    yield $k => $v;
                 }
             }
-
-            return $values;
         } catch (\Error $e) {
             throw new \ErrorException($e->getMessage(), $e->getCode(), E_ERROR, $e->getFile(), $e->getLine());
-        } finally {
-            ini_set('unserialize_callback_func', $unserializeCallbackHandler);
         }
     }
 
@@ -109,13 +103,15 @@ trait ApcuTrait
             }
 
             return array_keys($failures);
-        } catch (\Throwable $e) {
-            if (1 === \count($values)) {
-                // Workaround https://github.com/krakjoe/apcu/issues/170
-                apcu_delete(key($values));
-            }
-
-            throw $e;
+        } catch (\Error $e) {
+        } catch (\Exception $e) {
         }
+
+        if (1 === \count($values)) {
+            // Workaround https://github.com/krakjoe/apcu/issues/170
+            apcu_delete(key($values));
+        }
+
+        throw $e;
     }
 }

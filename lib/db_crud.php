@@ -84,7 +84,9 @@ Trait DB_CRUD {
         }
 
         $sql = "SELECT * FROM $table WHERE $where $order_by";
+        $this->db->debug = 1;
         $result = $this->db->Execute($sql,$arr_prestr);
+        $this->db->debug = 1;
         if($result && $result->RecordCount() > 0){
             return $result->FetchRow();
         }else{
@@ -101,7 +103,7 @@ Trait DB_CRUD {
      * @param  string  $order       排列順序
      * @return array
      */
-    function getArrayByArray($db,$table,$condition,$sort='',$order=''){
+    function getArrayByArray($table,$condition,$sort='',$order=''){
         $where = '';
         $arr_prestr = array();
         $tmp_in = isset($condition['in']) && is_array($condition['in'])? $condition['in']: array();
@@ -128,9 +130,15 @@ Trait DB_CRUD {
             $sort_field = $db->tableField($sort);
             $order_by = 'ORDER BY '.$sort_field.' '.$order;
         }
-
-        $sql = "SELECT * FROM $table WHERE $where $order_by";
-        $result = $this->db->Execute($sql,$arr_prestr);
+        if($condition!= array() || $where!=''){
+            $where = "WHERE $where";
+        }
+        
+        $sql = "SELECT * FROM $table  $where $order_by";
+        
+        
+        $result = $this->db->Execute($sql);
+        
         if($result && $result->RecordCount() > 0){
             return $result->getAll();
         }else{
@@ -158,7 +166,7 @@ Trait DB_CRUD {
         $sql = "INSERT INTO $table ($column_arr) VALUES ($arr)";
         $result = $this->db->Execute($sql,$arr_prestr);
         if($result){
-            $result_id = $db->db_link->_insertid();
+            $result_id = $this->db->_insertid();
             if( $result_id!=0 ){
                 return $result_id;
             }else{

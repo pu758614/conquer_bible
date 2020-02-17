@@ -30,29 +30,29 @@ You can verify whether the standard can be found:
 
 ```sh
 $ phpcs -i
-The installed coding standards are MySource, PSR1, PHPCS, Zend, Squiz, PEAR, PSR2 and PhpMyAdmin
+The installed coding standards are MySource, PSR1, PHPCS, Zend, Squiz, PEAR, PSR2 and PMAStandard
 ```
 
 Run CodeSniffer:
 
 ```sh
-$ phpcs --standard=PhpMyAdmin /path/to/code
+$ phpcs --standard=PMAStandard /path/to/code
 ```
 
-You can optionally make PhpMyAdmin the default for all invocations of phpcs, then you don't need to
+You can optionally make PMAStandard the default for all invocations of phpcs, then you don't need to
 manually specify it each time on the command line:
 
 ```sh
-$ phpcs --config-set default_standard PhpMyAdmin
+$ phpcs --config-set default_standard PMAStandard
 ```
 
 ## Using
 
-PhpMyAdmin has its tuned coding style checks, such as missing `@author`,
-`@copyright`, `@link` or other tags. Let's take a look at an example, checked with PhpMyAdmin:
+PMAStandard has its tuned coding style checks, such as missing `@author`,
+`@copyright`, `@link` or other tags. Let's take a look at an example, checked with PMAStandard:
 
 ```sh
-$ phpcs --standard=PhpMyAdmin /path/to/code/myfile.php
+$ phpcs --standard=PMAStandard /path/to/code/myfile.php
 123 | WARNING | Line exceeds 85 characters; contains 139 characters
 184 | ERROR   | Line indented incorrectly; expected at least 20 spaces, found
     |         | 16

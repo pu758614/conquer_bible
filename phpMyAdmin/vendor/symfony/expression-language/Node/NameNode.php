@@ -20,7 +20,7 @@ use Symfony\Component\ExpressionLanguage\Compiler;
  */
 class NameNode extends Node
 {
-    public function __construct(string $name)
+    public function __construct($name)
     {
         parent::__construct(
             [],

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Defines the lexer of the library.
  *
@@ -6,7 +7,6 @@
  *
  * Depends on context to extract lexemes.
  */
-declare(strict_types=1);
 
 namespace PhpMyAdmin\SqlParser;
 
@@ -33,6 +33,10 @@ if (! defined('USE_UTF_STRINGS')) {
  *
  * The output of the lexer is affected by the context of the SQL statement.
  *
+ * @category Lexer
+ *
+ * @license  https://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
+ *
  * @see      Context
  */
 class Lexer extends Core
@@ -42,7 +46,7 @@ class Lexer extends Core
      *
      * @var array
      */
-    public static $PARSER_METHODS = [
+    public static $PARSER_METHODS = array(
         // It is best to put the parsers in order of their complexity
         // (ascending) and their occurrence rate (descending).
         //
@@ -76,8 +80,8 @@ class Lexer extends Core
         'parseSymbol',
         'parseKeyword',
         'parseLabel',
-        'parseUnknown',
-    ];
+        'parseUnknown'
+    );
 
     /**
      * The string to be parsed.
@@ -154,6 +158,8 @@ class Lexer extends Core
     }
 
     /**
+     * Constructor.
+     *
      * @param string|UtfString $str       the query to be lexed
      * @param bool             $strict    whether strict mode should be
      *                                    enabled or not
@@ -347,7 +353,7 @@ class Lexer extends Core
      * @param int    $pos  the position of the character
      * @param int    $code the code of the error
      *
-     * @throws LexerException throws the exception, if strict mode is enabled.
+     * @throws LexerException throws the exception, if strict mode is enabled
      */
     public function error($msg, $str = '', $pos = 0, $code = 0)
     {
