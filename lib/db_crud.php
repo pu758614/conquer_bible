@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace DB_CRUD;
 Trait DB_CRUD {
     /**
@@ -94,7 +94,7 @@ Trait DB_CRUD {
         }
     }
 
-    
+
     /**
      * 取得一筆資料(多條件)
      * @param  string  $table       資料表
@@ -103,7 +103,7 @@ Trait DB_CRUD {
      * @param  string  $order       排列順序
      * @return array
      */
-    function getArrayByArray($table,$condition,$sort='',$order=''){
+    function getArrayByArray($table,$condition=array(),$sort='',$order=''){
         $where = '';
         $arr_prestr = array();
         $tmp_in = isset($condition['in']) && is_array($condition['in'])? $condition['in']: array();
@@ -133,12 +133,12 @@ Trait DB_CRUD {
         if($condition!= array() || $where!=''){
             $where = "WHERE $where";
         }
-        
+
         $sql = "SELECT * FROM $table  $where $order_by";
-        
-        
+
+
         $result = $this->db->Execute($sql);
-        
+
         if($result && $result->RecordCount() > 0){
             return $result->getAll();
         }else{
@@ -209,7 +209,7 @@ Trait DB_CRUD {
      * @param  array   $condition 條件
      * @return boolean
      */
-    function updateData($db,$table,$data,$condition) {
+    function updateData($table,$data,$condition) {
         $where = $column = '';
         $arr_prestr = array();
 

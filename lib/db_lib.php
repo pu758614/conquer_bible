@@ -1,18 +1,25 @@
-<?php 
-include_once(dirname(__DIR__)."/vendor/autoload.php");
+<?php
+include_once(dirname(__DIR__)."../../vendor/autoload.php"); 
 include_once(dirname(__DIR__)."/lib/common.php");
 include_once(dirname(__DIR__)."/lib/db_crud.php");
 
-class db_lib {   
+class db_lib {
     use DB_CRUD\DB_CRUD;
     function __construct(){
         date_default_timezone_set('asia/taipei');
         header("Content-type: text/html; charset=utf-8");
+        $host = 'us-cdbr-iron-east-04.cleardb.net';
+        //改成你登入phpmyadmin帳號
+        $user = 'b65f080869b290';
+        //改成你登入phpmyadmin密碼
+        $passwd = 'afa6a322';
+        //資料庫名稱
+        $database = 'heroku_4d9bdcbc4d69fab';
         $this->db = ADONewConnection('mysqli');
-        $this->db->Connect("localhost","root","123456789","bible");
+        $this->db->Connect($host,$user,$passwd,$database);
         $this->db->SetFetchMode(ADODB_FETCH_ASSOC);
     }
-    
+
     //記錄所有LINE進來的訊息
     function record_msg_log($uuid,$msg){
         $data = array(
@@ -23,7 +30,7 @@ class db_lib {
         );
         $this->insertData("line_msg_log",$data);
     }
-    
+
     //取得LINE使用者訊息
     function getUserInfo($id,$type='id'){
         if($type=='uuid'){
@@ -73,13 +80,13 @@ class db_lib {
     function addPlyerUser($user_id){
         $data = array(
             "user_id" => $user_id,
-            "start_date" => date("Y-m:d"),   
+            "start_date" => date("Y-m:d"),
             "modify_time"  => date("Y-m-d")
         );
         $result = $this->insertData("conquer_bible_player",$data);
         return $result;
     }
-    
+
     //取得書捲資料
     function getBibleBook($book_arr = array()){
         $result = $result_arr = array();
@@ -105,7 +112,7 @@ class db_lib {
         }
         return $result;
     }
-    
+
     //新增/減少讀經進度
     function readBible($player_id,$action,$data){
         global $BibleBook;
@@ -119,7 +126,7 @@ class db_lib {
         }else{
             $type = "minus";
         }
-        
+
         foreach ($chapter_arr as  $chapter) {
             $record_data =array(
                 "player_id" => $player_id,
@@ -153,7 +160,7 @@ class db_lib {
         }
         return $result;
     }
-    
+
 }
 
 
